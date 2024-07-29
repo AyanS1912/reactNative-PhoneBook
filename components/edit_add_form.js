@@ -1,12 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Button,
-  Alert,
-  ScrollView,
-} from "react-native";
+import { View, Text, StyleSheet, Button, Alert, Pressable } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { useDispatch } from "react-redux";
 import { addContact, updateContact } from "../store/contacts";
@@ -142,15 +135,29 @@ function ContactForm({ isEdit, contact }) {
         />
       </View>
       <View style={styles.buttonContainer}>
-        <View style={styles.buttonBox}>
+        <Pressable
+          style={styles.pressable}
+          android_ripple={{ color: "#fe0909" }}
+          onPress={() => navigation.goBack()}
+        >
+          <Text style={styles.buttonText}>Cancel</Text>
+        </Pressable>
+        {/* <View style={styles.buttonBox}>
           <Button title="Cancel" onPress={() => navigation.goBack()} />
-        </View>
-        <View style={styles.buttonBox}>
+        </View> */}
+        {/* <View style={styles.buttonBox}>
           <Button
             title={contact ? "Update" : "Save"}
             onPress={showConfirmDialog}
           />
-        </View>
+        </View> */}
+        <Pressable
+          style={styles.pressable}
+          android_ripple={{ color: "#0000ff" }}
+          onPress={showConfirmDialog}
+        >
+          <Text style={styles.buttonText}>{contact ? "Update" : "Save"}</Text>
+        </Pressable>
       </View>
       <Dialog.Container visible={visible}>
         <Dialog.Title>
@@ -225,8 +232,16 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 
-  buttonBox: {
-    borderRadius: 100,
-    padding: 20,
+  pressable: {
+    backgroundColor: "#0494c4",
+    padding: 10,
+    borderRadius: 10,
+    width: 150,
+    alignItems: "center",
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
